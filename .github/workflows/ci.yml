@@ -1,0 +1,33 @@
+name: C++ Multiplatform CI
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+    name: Compilación en ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+    - name: Obtener código del repositorio
+      uses: actions/checkout@v4
+
+    - name: Configurar CMake
+      run: cmake -B ${{ github.workspace }}/build -DCMAKE_BUILD_TYPE=Release
+
+    - name: Compilar proyecto
+      run: cmake --build ${{ github.workspace }}/build --config Release
+
+    - name: Ejecutar pruebas / verificación (Opcional)
+      run: |
+        cd ${{ github.workspace }}/build
+        ctest --output-on-failure
+      continue-on-error: true
