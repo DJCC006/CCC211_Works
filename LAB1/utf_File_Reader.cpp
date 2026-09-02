@@ -35,7 +35,7 @@ void readBinaryFile(const std::string& fileName){
     
     //deserializamos la informacion
     if(!file.read(reinterpret_cast<char*>(buffer.data()), size)){
-        std::cerr <<"ERROR: NO SE PUDO"<<std::endl;
+        std::cerr <<"ERROR: NO SE PUDO LEER EL ARCHIVO"<<std::endl;
     }
     
     //Variable que maneja mi puntero
@@ -43,15 +43,11 @@ void readBinaryFile(const std::string& fileName){
 
     //Verificacion de BOM
     if(buffer.size()>=3 && buffer[0]== 0xEF 
-        && buffer[1] == 0xBB & buffer[2] == 0xBF ){
+        && buffer[1] == 0xBB && buffer[2] == 0xBF ){
             //BOM detectado
-            std::cout<< "FLAG: BOM DETECTADO, CAMBIANDO OFFSET"<<std::endl;
             offset=3;
-    }else{
-        std::cout<<"FLAG: EL ARCHIVO NO CONTIENE BOM"<<std::endl;
     }
     
-
     //Variables controladores de datos
     std::vector<uint32_t> code_points;
     //1 byte - 2 bytes - 3 bytes - 4 bytes
@@ -85,14 +81,14 @@ void readBinaryFile(const std::string& fileName){
 
         }else if((b1 & 0xE0) == 0xC0){
             //2 bytes
-            bytes_controller[1]++;
-
+            
             //Validacion de secuencia incompleta con b1
             if(offset +1 >= buffer.size()){
                 errorUTF8 errortmp;
                 errortmp.offset=offset;
                 errortmp.error_message="Secuencia incompleta";
                 reportar_error.push_back(errortmp);
+                offset+=1;
                 continue;
             }else{
 
@@ -105,18 +101,20 @@ void readBinaryFile(const std::string& fileName){
                     errortmp2.offset=offset;
                     errortmp2.error_message= "Byte de continuacion esperado, no encontrado";
                     reportar_error.push_back(errortmp2);
-                    offset= offset +1;
+                    offset+= 1;
                     continue;
                 }
                 code_point= ((b1 & 0x1F) << 6) | (b2 & 0x3F);
+                bytes_controller[1]++;
+                offset = offset + 2;
+                code_points.push_back(code_point);
                 
             }
-            offset = offset + 2;
-            code_points.push_back(code_point);
+            
 
         }else if((b1 & 0xF0) == 0xE0){
             //3 bytes
-            bytes_controller[2]++;
+            
 
             //Validar secuencia incompleta con b1
             if(offset +2 >= buffer.size()){
@@ -124,6 +122,7 @@ void readBinaryFile(const std::string& fileName){
                 errortmp.offset=offset;
                 errortmp.error_message="Secuencia incompleta";
                 reportar_error.push_back(errortmp);
+                offset += 1;
                 continue;
             }else{
                 uint8_t b2 = buffer[offset+ 1];
@@ -140,20 +139,23 @@ void readBinaryFile(const std::string& fileName){
                 } //creo que aqui deberia ir un else que si permita construir el codepoint
 
                 code_point = ((b1 & 0x0F) << 12) | ((b2 & 0x3F) << 6) | (b3 & 0x3F);
+                bytes_controller[2]++;
+                offset = offset +3;
+                code_points.push_back(code_point);
             }
 
-            //Guardado independiente si estaba bueno o malo XD
-            offset = offset +3;
-            code_points.push_back(code_point);
+           
+            
 
         }else if((b1 & 0xF8) ==  0xF0){
             //4 bytes
-            bytes_controller[3]++;
+            
             if(offset+3 >= buffer.size()){
                 errorUTF8 errortmp;
                 errortmp.offset=offset;
                 errortmp.error_message="Secuencia incompleta";
                 reportar_error.push_back(errortmp);
+                offset += 1;
                 continue;
             }else{
                 uint8_t b2 = buffer[offset+1];
@@ -171,12 +173,10 @@ void readBinaryFile(const std::string& fileName){
                 } 
 
                 code_point = ((b1 & 0x07) << 18) | ((b2 & 0x3F) << 12) | ((b3 & 0x3F) << 6) | (b4 & 0x3F) ;
-
+                bytes_controller[3]++;
+                 offset = offset +4;
+                code_points.push_back(code_point);
             }
-
-            offset = offset +4;
-            code_points.push_back(code_point);
-
 
         }else if((b1 & 0xC0) == 0x80){
             //Byte Huerfano
@@ -184,15 +184,45 @@ void readBinaryFile(const std::string& fileName){
             error.offset=offset;
             error.error_message="byte de continuacion inesperado";
             reportar_error.push_back(error);
+            offset+=1;
             continue;
-        }//evaluacion extra
-
-
-        //Agregado de codepoint y evaluacion de offset
+        }else{
+            //Caso de Bytes lideres invalidos
+            errorUTF8 error;
+            error.offset=offset;
+            error.error_message="Byte lider invalido";
+            reportar_error.push_back(error);
+            offset+=1;
+            continue;
+        }
 
     }
 
+    //Decodificacion de caracteres
+    std::cout << "=== Contenido Decodificado ==="<< std::endl;
+    for(uint32_t cp : code_points){
+        if(cp >= 0x20 && cp <= 0x7E ){
+            std::cout << static_cast<char>(cp) <<std::endl;
+        }else{
+            std::cout<< std::format("U+{:04X}", cp)<< std::endl;
+        }
+    }
 
+    //Impresion de errores
+    std::cout<< "=== Errores Detectados ==="<<std::endl;
+    for(errorUTF8 err : reportar_error){
+        std::cout << std::format("[offset {}] {}",err.offset, err.error_message)<<std::endl;
+    }
+
+    //Impresion de resumen
+    std::cout   << "=== Resumen ==="<< std::endl;
+    std::cout << std::format("Bytes totales:        {}", buffer.size())<<std::endl;
+    std::cout << std::format("Code points validos:      {}", code_points.size())<<std::endl;
+    std::cout << std::format("  - 1 byte:       {}", bytes_controller[0])<<std::endl;
+    std::cout << std::format("   - 2 bytes:      {}", bytes_controller[1])<<std::endl;
+    std::cout << std::format("  - 3 bytes:      {}", bytes_controller[2])<<std::endl;
+    std::cout << std::format("  - 4 bytes:      {}", bytes_controller[3])<<std::endl;
+    std::cout << std::format("Errores detectados:       {}", reportar_error.size())<<std::endl;
 }
 
 //Se le ponen argumentos al main para poder capturar la informacion desde la consola
@@ -201,6 +231,9 @@ int main(int argc, char* argv[]){
     //Validacion de ingresado ruta de archivo
     if(argc <2){
         std::cerr << "No se ingreso un ruta de archivo"<<std::endl;
+        return 1;
+    }else(argc > 2){
+        std::cerr << "Ingreso argumentos adicionales"<<std::endl;
         return 1;
     }
 
