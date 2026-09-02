@@ -232,7 +232,7 @@ int main(int argc, char* argv[]){
     if(argc <2){
         std::cerr << "No se ingreso un ruta de archivo"<<std::endl;
         return 1;
-    }else(argc > 2){
+    }else if(argc > 2){
         std::cerr << "Ingreso argumentos adicionales"<<std::endl;
         return 1;
     }
