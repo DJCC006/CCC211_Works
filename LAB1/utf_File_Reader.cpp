@@ -104,7 +104,7 @@ void readBinaryFile(const std::string& fileName){
                     offset+= 1;
                     continue;
                 }
-                code_point= ((b1 & 0x1F) << 6) | (b2 & 0x3F);
+                code_point = ((b1 & 0x1F) << 6) | (b2 & 0x3F);
                 bytes_controller[1]++;
                 offset = offset + 2;
                 code_points.push_back(code_point);
@@ -216,13 +216,13 @@ void readBinaryFile(const std::string& fileName){
 
     //Impresion de resumen
     std::cout   << "=== Resumen ==="<< std::endl;
-    std::cout << std::format("Bytes totales:        {}", buffer.size())<<std::endl;
-    std::cout << std::format("Code points validos:      {}", code_points.size())<<std::endl;
-    std::cout << std::format("  - 1 byte:       {}", bytes_controller[0])<<std::endl;
-    std::cout << std::format("   - 2 bytes:      {}", bytes_controller[1])<<std::endl;
-    std::cout << std::format("  - 3 bytes:      {}", bytes_controller[2])<<std::endl;
-    std::cout << std::format("  - 4 bytes:      {}", bytes_controller[3])<<std::endl;
-    std::cout << std::format("Errores detectados:       {}", reportar_error.size())<<std::endl;
+    std::cout << std::format("Bytes totales:           {}", buffer.size())<<std::endl;
+    std::cout << std::format("Code points validos:     {}", code_points.size())<<std::endl;
+    std::cout << std::format("  - 1 byte:              {}", bytes_controller[0])<<std::endl;
+    std::cout << std::format("   - 2 bytes:            {}", bytes_controller[1])<<std::endl;
+    std::cout << std::format("  - 3 bytes:             {}", bytes_controller[2])<<std::endl;
+    std::cout << std::format("  - 4 bytes:             {}", bytes_controller[3])<<std::endl;
+    std::cout << std::format("Errores detectados:      {}", reportar_error.size())<<std::endl;
 }
 
 //Se le ponen argumentos al main para poder capturar la informacion desde la consola
@@ -230,10 +230,10 @@ int main(int argc, char* argv[]){
 
     //Validacion de ingresado ruta de archivo
     if(argc <2){
-        std::cerr << "No se ingreso un ruta de archivo"<<std::endl;
+        std::cerr << "AVISO: No se ingreso un ruta de archivo"<<std::endl;
         return 1;
     }else if(argc > 2){
-        std::cerr << "Ingreso argumentos adicionales"<<std::endl;
+        std::cerr << "AVISO: Ingreso argumentos adicionales"<<std::endl;
         return 1;
     }
 
