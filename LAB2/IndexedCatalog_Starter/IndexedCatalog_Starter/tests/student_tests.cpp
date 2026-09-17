@@ -168,26 +168,7 @@ TEST_CASE("Preuba para TODO 4: build_composer_index"){
         CHECK(res.skipped[0].offset==500);
         CHECK(res.skipped[0].status = lab2::ReadStatus::InvalidOffset);
     }
-    /*
-    SUBCASE("ConstruccionExitosa: Agrupa y ordena compositores y label_ids"){
-        std::stringstream ss;
-        std::vector<lab2::PrimaryEntry> primary_mock = {
-            {"ALB-002", 0},
-            {"ALB-001",100}
-        };
-
-        auto res = lab2::build_composer_index(ss, primary_mock);
-
-        if(res.skipped.empty() && !res.entries.empty()){
-            CHECK(std::)
-        }
-
-
-    }
-        */
 }
-
-
 
 
 
@@ -232,7 +213,6 @@ TEST_CASE("Prueba para TODO 5: find_by_composer"){
     }
 
 }
-
 
 
 
