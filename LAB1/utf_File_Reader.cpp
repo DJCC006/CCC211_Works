@@ -139,6 +139,27 @@ void readBinaryFile(const std::string& fileName){
                 } //creo que aqui deberia ir un else que si permita construir el codepoint
 
                 code_point = ((b1 & 0x0F) << 12) | ((b2 & 0x3F) << 6) | (b3 & 0x3F);
+
+                if(code_point < 0x800){
+                     errorUTF8 errortmp2;
+                    errortmp2.offset=offset;
+                    errortmp2.error_message= "Error de byte sobrelargo";
+                    reportar_error.push_back(errortmp2);
+                    offset= offset +1;
+                    continue;
+                }
+
+                //evaluacion para rango subrogado UTF-16 invalido en UTF-8
+                if(code_point >= 0xD800 && code_point <=0xDFFF){
+                    errorUTF8 errortmp2;
+                    errortmp2.offset=offset;
+                    errortmp2.error_message= "Error de evaluacion para rango UTF-16 invalido";
+                    reportar_error.push_back(errortmp2);
+                    offset= offset +1;
+                    continue;
+                }
+
+
                 bytes_controller[2]++;
                 offset = offset +3;
                 code_points.push_back(code_point);
