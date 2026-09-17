@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="(empty)"
+	BuildStamp="20260917-1924-Experimental"
+	Name="(empty)"
+	Generator="ctest-4.4.3"
+	CompilerName=""
+	CompilerVersion=""
+	OSName="Windows"
+	Hostname="MyPortatil"
+	OSRelease="10.0.26100"
+	OSVersion="Windows 10"
+	OSPlatform="AMD64"
+	Is64Bits="1"
+	VendorString="AuthenticAMD"
+	VendorID="Advanced Micro Devices"
+	FamilyID="15"
+	ModelID="0"
+	ModelName="AMD Ryzen 7 7730U with Radeon Graphics"
+	ProcessorCacheSize="64"
+	NumberOfLogicalCPU="16"
+	NumberOfPhysicalCPU="8"
+	TotalVirtualMemory="5120"
+	TotalPhysicalMemory="30561"
+	LogicalProcessorsPerPhysical="2"
+	ProcessorClockFrequency="2000.000000"
+	>
+	<Testing>
+		<StartDateTime>Sep 17 13:24 Central America Standard Time</StartDateTime>
+		<StartTestTime>1789673058</StartTestTime>
+		<TestList/>
+		<EndDateTime>Sep 17 13:24 Central America Standard Time</EndDateTime>
+		<EndTestTime>1789673058</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

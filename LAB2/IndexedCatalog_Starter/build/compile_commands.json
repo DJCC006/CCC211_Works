@@ -1,0 +1,62 @@
+[
+{
+  "directory": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -I\"C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/IndexedCatalog_Starter/include\" -g -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles\\catalog_core.dir\\src\\binary_io.cpp.obj -c \"C:\\Users\\David\\Documents\\Documentos UNI\\II Jahre\\IV QUARTER\\Estru II\\Trabajos_Launcher\\LAB2\\IndexedCatalog_Starter\\IndexedCatalog_Starter\\src\\binary_io.cpp\"",
+  "file": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/IndexedCatalog_Starter/src/binary_io.cpp",
+  "output": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/build/CMakeFiles/catalog_core.dir/src/binary_io.cpp.obj"
+},
+{
+  "directory": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -I\"C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/IndexedCatalog_Starter/include\" -g -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles\\catalog_core.dir\\src\\crc32.cpp.obj -c \"C:\\Users\\David\\Documents\\Documentos UNI\\II Jahre\\IV QUARTER\\Estru II\\Trabajos_Launcher\\LAB2\\IndexedCatalog_Starter\\IndexedCatalog_Starter\\src\\crc32.cpp\"",
+  "file": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/IndexedCatalog_Starter/src/crc32.cpp",
+  "output": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/build/CMakeFiles/catalog_core.dir/src/crc32.cpp.obj"
+},
+{
+  "directory": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -I\"C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/IndexedCatalog_Starter/include\" -g -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles\\catalog_core.dir\\src\\catalog_codec.cpp.obj -c \"C:\\Users\\David\\Documents\\Documentos UNI\\II Jahre\\IV QUARTER\\Estru II\\Trabajos_Launcher\\LAB2\\IndexedCatalog_Starter\\IndexedCatalog_Starter\\src\\catalog_codec.cpp\"",
+  "file": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/IndexedCatalog_Starter/src/catalog_codec.cpp",
+  "output": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/build/CMakeFiles/catalog_core.dir/src/catalog_codec.cpp.obj"
+},
+{
+  "directory": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -I\"C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/IndexedCatalog_Starter/include\" -g -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles\\catalog_core.dir\\src\\index_io.cpp.obj -c \"C:\\Users\\David\\Documents\\Documentos UNI\\II Jahre\\IV QUARTER\\Estru II\\Trabajos_Launcher\\LAB2\\IndexedCatalog_Starter\\IndexedCatalog_Starter\\src\\index_io.cpp\"",
+  "file": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/IndexedCatalog_Starter/src/index_io.cpp",
+  "output": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/build/CMakeFiles/catalog_core.dir/src/index_io.cpp.obj"
+},
+{
+  "directory": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -I\"C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/IndexedCatalog_Starter/include\" -g -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles\\catalog_core.dir\\src\\catalog.cpp.obj -c \"C:\\Users\\David\\Documents\\Documentos UNI\\II Jahre\\IV QUARTER\\Estru II\\Trabajos_Launcher\\LAB2\\IndexedCatalog_Starter\\IndexedCatalog_Starter\\src\\catalog.cpp\"",
+  "file": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/IndexedCatalog_Starter/src/catalog.cpp",
+  "output": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/build/CMakeFiles/catalog_core.dir/src/catalog.cpp.obj"
+},
+{
+  "directory": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -I\"C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/IndexedCatalog_Starter/include\" -g -std=c++20 -o CMakeFiles\\lab2_catalog.dir\\src\\main.cpp.obj -c \"C:\\Users\\David\\Documents\\Documentos UNI\\II Jahre\\IV QUARTER\\Estru II\\Trabajos_Launcher\\LAB2\\IndexedCatalog_Starter\\IndexedCatalog_Starter\\src\\main.cpp\"",
+  "file": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/IndexedCatalog_Starter/src/main.cpp",
+  "output": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/build/CMakeFiles/lab2_catalog.dir/src/main.cpp.obj"
+},
+{
+  "directory": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -I\"C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/IndexedCatalog_Starter/include\" -g -std=c++20 -o CMakeFiles\\catalog_generate.dir\\tools\\generate_catalog.cpp.obj -c \"C:\\Users\\David\\Documents\\Documentos UNI\\II Jahre\\IV QUARTER\\Estru II\\Trabajos_Launcher\\LAB2\\IndexedCatalog_Starter\\IndexedCatalog_Starter\\tools\\generate_catalog.cpp\"",
+  "file": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/IndexedCatalog_Starter/tools/generate_catalog.cpp",
+  "output": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/build/CMakeFiles/catalog_generate.dir/tools/generate_catalog.cpp.obj"
+},
+{
+  "directory": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -g -std=c++20 -o CMakeFiles\\catalog_corrupt.dir\\tools\\corrupt_file.cpp.obj -c \"C:\\Users\\David\\Documents\\Documentos UNI\\II Jahre\\IV QUARTER\\Estru II\\Trabajos_Launcher\\LAB2\\IndexedCatalog_Starter\\IndexedCatalog_Starter\\tools\\corrupt_file.cpp\"",
+  "file": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/IndexedCatalog_Starter/tools/corrupt_file.cpp",
+  "output": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/build/CMakeFiles/catalog_corrupt.dir/tools/corrupt_file.cpp.obj"
+},
+{
+  "directory": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -I\"C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/IndexedCatalog_Starter/third_party\" -I\"C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/IndexedCatalog_Starter/include\" -g -std=c++20 -o CMakeFiles\\catalog_tests.dir\\tests\\tests.cpp.obj -c \"C:\\Users\\David\\Documents\\Documentos UNI\\II Jahre\\IV QUARTER\\Estru II\\Trabajos_Launcher\\LAB2\\IndexedCatalog_Starter\\IndexedCatalog_Starter\\tests\\tests.cpp\"",
+  "file": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/IndexedCatalog_Starter/tests/tests.cpp",
+  "output": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/build/CMakeFiles/catalog_tests.dir/tests/tests.cpp.obj"
+},
+{
+  "directory": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -I\"C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/IndexedCatalog_Starter/third_party\" -I\"C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/IndexedCatalog_Starter/include\" -g -std=c++20 -o CMakeFiles\\catalog_tests.dir\\tests\\student_tests.cpp.obj -c \"C:\\Users\\David\\Documents\\Documentos UNI\\II Jahre\\IV QUARTER\\Estru II\\Trabajos_Launcher\\LAB2\\IndexedCatalog_Starter\\IndexedCatalog_Starter\\tests\\student_tests.cpp\"",
+  "file": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/IndexedCatalog_Starter/tests/student_tests.cpp",
+  "output": "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/build/CMakeFiles/catalog_tests.dir/tests/student_tests.cpp.obj"
+}
+]

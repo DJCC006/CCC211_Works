@@ -8,6 +8,8 @@
 #include <utility>
 #include <span>
 #include <cstddef>
+#include <unordered_map>
+#include <unordered_set>
 
 namespace lab2 {
 
@@ -197,20 +199,21 @@ PrimaryBuildResult build_primary_index(std::istream& input) {
     PrimaryBuildResult result;
     std::uint64_t current_offset=0;
 
-    //Construccion de lista de indices
+    //Construccion de lista 0de indices
     while(true){
         //Se lee el registro en la posicion actual
         ReadResult read_res = read_record_at(input, current_offset);
 
         //Se maneja el tope del archivo de forma limpia
-        if(read_res.status == ReadStatus::Ok){
+        if(read_res.status == ReadStatus::InvalidOffset){
             break;
         }
 
         //parar al encontrar fallo en lectura
         if(read_res.status != ReadStatus::Ok){
-            result.status = read_res.status;
-            result.detail = read_res.detail;
+            result.status = BuildStatus::ReadError;
+            result.error_offset=current_offset;
+            result.detail=read_res.detail;
             result.entries.clear();
             return result;
         }
@@ -223,17 +226,29 @@ PrimaryBuildResult build_primary_index(std::istream& input) {
 
         //Se avanza al siguiente record
         current_offset = read_res.next_offset;
-
     }
 
-    //Ordenar la lista de indices
+    //Ordenar la lista de indices alfabeticamente
     std::sort(result.entries.begin(), result.entries.end(), 
         [](const PrimaryEntry& a, const PrimaryEntry& b){
             return a.label_id < b.label_id;
         }
     );
 
-    result.status = ReadStatus::Ok;
+    //detectar claves duplicadas
+    for(std::size_t i =1; i <result.entries.size(); i++){
+        if(result.entries[i].label_id == result.entries[i+1].label_id){
+            result.status =  BuildStatus::DuplicateKey;
+            result.error_key = result.entries[i].label_id;
+            result.error_offset =  result.entries[i].offset;
+            result.detail = "Clave duplicada encontrada: "+result.entries[i].label_id;
+            result.entries.clear();
+            return result;
+        }
+    }
+
+    //Caso de Exito
+    result.status = BuildStatus::Ok;
     result.detail = "Indice primario construido exitosamente";
     return result;
 }
@@ -244,9 +259,34 @@ std::optional<std::uint64_t> find_offset(
     // TODO 3
     // Implemente búsqueda binaria manual. No use std::lower_bound,
     // std::binary_search ni std::equal_range.
-    (void)index;
-    (void)label_id;
+
+    //Verificar que el indice no sea vacio
+    if(index.empty()){
+        return std::nullopt;
+    }
+
+    size_t left = 0;
+    size_t right = index.size();
+
+    while(left< right){
+
+        //obtener el punto medio
+        size_t mid =left + (right-left)/2;
+
+        if(index[mid].label_id == label_id){
+            return index[mid].offset;
+        }
+
+        //acortar dependiendo de los ids.
+        if(index[mid].label_id < label_id){
+            left = mid +1;
+        }else{
+            right =  mid;
+        }
+    }
+
     return std::nullopt;
+
 }
 
 ReadResult find_record(
@@ -273,9 +313,53 @@ ComposerBuildResult build_composer_index(
     // TODO 4
     // Recomendación: reúna pares (composer, label_id), ordénelos y agrúpelos.
     // No almacene offsets en este índice secundario.
-    (void)input;
-    (void)primary;
-    return {};
+
+    
+    ComposerBuildResult result;
+    std::uint64_t current_offset =0;
+
+    //Tabla hash temporal para agrupar los indices
+    std::unordered_map<std::string, std::vector<std::string>> grouped_map;
+
+
+    //recorrir cada entrada del indice primario recibido
+    for(const auto& entry : primary){
+        //leemos el registro usando el indice del registro primary 
+        ReadResult read_res = read_record_at(input, entry.offset);
+
+        //abortar el proceso si se encuentra error
+        if(read_res.status != ReadStatus::Ok){
+            result.skipped.push_back(SkippedRecord{
+                .offset = entry.offset,
+                .status = read_res.status,
+            });
+            continue;
+        }
+
+        //agrupar el label bajo su respectivo compositor
+        grouped_map[read_res.record->composer].push_back(read_res.record->label_id);
+    }
+
+    //transferir el mapa al vector
+    for(auto& [composer_name, labels] : grouped_map){
+        std::sort(labels.begin(), labels.end());
+
+        result.entries.push_back(ComposerEntry{
+            .composer = composer_name,
+            .label_ids = std::move(labels)
+        });
+    }
+
+    //ordenrar los indices secundarios
+    std::sort(result.entries.begin(), result.entries.end(),
+        [](const ComposerEntry& a, const ComposerEntry& b){
+            return a.composer < b.composer;
+        }
+    );
+
+    //Modificacion
+    //TERMINAR DE VER CONFIGURACION MANUAL
+    return result;
 }
 
 std::span<const std::string> find_by_composer(
@@ -283,9 +367,30 @@ std::span<const std::string> find_by_composer(
     std::string_view composer) {
     // TODO 5
     // El ComposerIndex está ordenado por compositor: use búsqueda binaria.
-    (void)index;
-    (void)composer;
+
+    if(index.empty()){
+        return {};
+    }
+
+    std::size_t left =0;
+    std::size_t right = index.size();
+
+    while(left<right){
+        std::size_t mid = left + (right-left)/2;
+
+        if(index[mid].composer == composer){
+            return std::span<const std::string>(index[mid].label_ids);
+        }
+
+        if(index[mid].composer<composer){
+            left = mid+1;
+        }else{
+            right=mid;
+        }
+    }
+
     return {};
+
 }
 
 VerificationReport verify_primary_index(
@@ -294,9 +399,69 @@ VerificationReport verify_primary_index(
     // TODO 6
     // Haga primero las verificaciones estructurales del índice y luego valide
     // cada referencia con read_record_at. No imprima desde esta función.
-    (void)input;
-    (void)index;
-    return {};
+
+    VerificationReport report;
+    report.entries_checked = index.size();
+
+    std::unordered_set<std::string_view> seen_keys;
+    std::unordered_set<std::uint64_t> seen_offsets;
+    bool is_unsorted_reported = false;
+
+    //verificaciones estructurales
+    for(std::size_t i=0; i<index.size(); i++){
+        const auto& entry = index[i];
+
+        //verificacion de orden
+        if(i>0 && entry.label_id < index[i-1].label_id){
+            if(!is_unsorted_reported){
+                report.issues.push_back(VerificationIssue{
+                    .type = VerificationIssueType::UnsortedIndex
+                });
+                is_unsorted_reported=true;
+            }
+        }
+
+        //verificacion de llaves duplicadas
+        if(seen_keys.contains(entry.label_id)){
+            report.issues.push_back(VerificationIssue{
+                .type= VerificationIssueType::DuplicateKey,
+            });
+        }else{
+            seen_keys.insert(entry.label_id);
+        }
+
+        //verificacion de offsets duplicados
+        if(seen_offsets.contains(entry.offset)){
+            report.issues.push_back(VerificationIssue{
+                .type= VerificationIssueType::DuplicateOffset,
+                .offset= entry.offset
+            });
+        }else{
+            seen_offsets.insert(entry.offset);
+        }
+    }
+
+    //Verificaciones contra archivos de datos
+    for(const auto& entry: index){
+        ReadResult read_res = read_record_at(input, entry.offset);
+
+        if(read_res.status!= ReadStatus::Ok){
+            report.issues.push_back(VerificationIssue{
+                .type= VerificationIssueType::RecordReadError,
+                .offset=entry.offset,
+                .read_status=read_res.status
+            });
+        }else if(read_res.record->label_id != entry.label_id){
+            report.issues.push_back(VerificationIssue{
+                .type = VerificationIssueType::KeyMismatch,
+                .offset = entry.offset
+            });
+        }else{
+            report.readable_matching_entries++;
+        }
+    }
+
+    return report;
 }
 
 std::vector<std::string> intersect_sorted(

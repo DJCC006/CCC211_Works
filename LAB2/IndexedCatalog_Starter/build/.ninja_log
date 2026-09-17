@@ -1,0 +1,10 @@
+# ninja log v7
+20	718	8113762471076401	CMakeFiles/catalog_core.dir/src/crc32.cpp.obj	6b3f9dcd04b47ae
+8	1746	8113762470960557	CMakeFiles/catalog_core.dir/src/binary_io.cpp.obj	92f91ef030ddc872
+79	2055	8113762471667271	CMakeFiles/catalog_generate.dir/tools/generate_catalog.cpp.obj	cf67ed342054bf62
+120	2156	8113762472076478	CMakeFiles/catalog_tests.dir/tests/student_tests.cpp.obj	a2b097fd99e3ab3b
+31	2467	8113762471188637	CMakeFiles/catalog_core.dir/src/catalog_codec.cpp.obj	9d71d09dc6264941
+93	2717	8113762471806043	CMakeFiles/catalog_corrupt.dir/tools/corrupt_file.cpp.obj	fbbf054f2f8c179f
+43	3050	8113762471311433	CMakeFiles/catalog_core.dir/src/index_io.cpp.obj	a7b13c9367f723af
+66	3260	8113762471533108	CMakeFiles/lab2_catalog.dir/src/main.cpp.obj	ab0897893a35770d
+106	11168	8113762471946486	CMakeFiles/catalog_tests.dir/tests/tests.cpp.obj	7780ca89a9da3a94

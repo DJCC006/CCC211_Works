@@ -1,0 +1,97 @@
+{
+	"configurations" : 
+	[
+		{
+			"abstractTargets" : [],
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-b5805d5c08fd3d92def4.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Lab2IndexedCatalog",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "catalog_core::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-catalog_core-Debug-a47e6b10c86f7139eb45.json",
+					"name" : "catalog_core",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "catalog_corrupt::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-catalog_corrupt-Debug-0939f81de18dd55c1589.json",
+					"name" : "catalog_corrupt",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "catalog_generate::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-catalog_generate-Debug-3391941a4db18725ae6a.json",
+					"name" : "catalog_generate",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "catalog_tests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-catalog_tests-Debug-f0a39233e3fd5bf1c663.json",
+					"name" : "catalog_tests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lab2_catalog::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lab2_catalog-Debug-9729d184b5efdc140e5a.json",
+					"name" : "lab2_catalog",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/build",
+		"source" : "C:/Users/David/Documents/Documentos UNI/II Jahre/IV QUARTER/Estru II/Trabajos_Launcher/LAB2/IndexedCatalog_Starter/IndexedCatalog_Starter"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 11
+	}
+}
