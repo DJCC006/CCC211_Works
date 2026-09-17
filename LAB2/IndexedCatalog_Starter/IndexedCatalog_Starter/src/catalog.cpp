@@ -69,15 +69,6 @@ std::uint64_t file_size(std::istream& input){
 
 
 ReadResult read_record_at(std::istream& input, std::uint64_t offset) {
-    // TODO 1
-    // Orden obligatorio:
-    // 1) comprobar tamaño/offset y hacer seek;
-    // 2) leer magic, version y payload_length;
-    // 3) validar el header ANTES de reservar memoria;
-    // 4) leer payload y CRC almacenado;
-    // 5) recalcular CRC;
-    // 6) decodificar el payload solamente si el CRC coincide.
-
     //Creacion de variables a manejar internamente
     ReadResult result;
     result.offset= offset;
@@ -156,10 +147,10 @@ ReadResult read_record_at(std::istream& input, std::uint64_t offset) {
     }
 
     //Lectura de payload
-    std::vector<std::uint8_t> payload(length);
+    std::vector<std::byte> payload(length);
     if(!input.read(reinterpret_cast<char*>(payload.data()),length)){
         result.status= ReadStatus::TruncatedPayload;
-        result.detail = "eRor en cargo de payload.";
+        result.detail = "ErRor en cargo de payload.";
         return result;
     }
 
@@ -171,12 +162,8 @@ ReadResult read_record_at(std::istream& input, std::uint64_t offset) {
         return result;
     }
 
-    //Verificar el crc
-    //Se hace la conversion de uint8 a bytes
-    const std::uint32_t crc_creado = lab2::crc32(
-        std::span<const std::byte>(
-            reinterpret_cast<const std::byte*>(payload.data()),payload.size())); //ver si esto aca se buguea
-    
+    const std::uint32_t crc_creado = lab2::crc32(payload);
+
     if(crc_creado!=stored_crc){
         result.status = ReadStatus::ChecksumMismatch;
         result.detail = "CRC32 mismatch: calculated " + std::to_string(crc_creado) +
@@ -187,16 +174,12 @@ ReadResult read_record_at(std::istream& input, std::uint64_t offset) {
 
 
     //otra funcion auxiliar
-    std::optional<Record> decoded_record = lab2::decode_payload(payload);
-    if (!decoded_record.has_value() ||
-        decoded_record->label_id.empty() ||
-        decoded_record->composer.empty() ||
-        decoded_record->title.empty()) {
+    PayloadDecodeResult decoded_record = lab2::decode_payload(payload);
+    if(!decoded_record.record.has_value()){
         result.status = ReadStatus::MalformedPayload;
-        result.detail = "El payload esta malformado";
+        result.detail= decoded_record.detail;
         return result;
     }
-
 
     //Retornado de valor en caso que si sea un valor valido
     result.status= ReadStatus::Ok;
@@ -210,9 +193,49 @@ ReadResult read_record_at(std::istream& input, std::uint64_t offset) {
 PrimaryBuildResult build_primary_index(std::istream& input) {
     // TODO 2
     // Recorra el archivo con next_offset, ordene por label_id y detecte duplicados.
-    (void)input;
-    return {BuildStatus::ReadError, {}, 0, {},
-            "TODO: implementar build_primary_index"};
+
+    PrimaryBuildResult result;
+    std::uint64_t current_offset=0;
+
+    //Construccion de lista de indices
+    while(true){
+        //Se lee el registro en la posicion actual
+        ReadResult read_res = read_record_at(input, current_offset);
+
+        //Se maneja el tope del archivo de forma limpia
+        if(read_res.status == ReadStatus::Ok){
+            break;
+        }
+
+        //parar al encontrar fallo en lectura
+        if(read_res.status != ReadStatus::Ok){
+            result.status = read_res.status;
+            result.detail = read_res.detail;
+            result.entries.clear();
+            return result;
+        }
+
+        //Se agrega el registro al conjunto de indices primarios
+        result.entries.push_back(PrimaryEntry{
+            .label_id = read_res.record->label_id,
+            .offset = current_offset
+        });
+
+        //Se avanza al siguiente record
+        current_offset = read_res.next_offset;
+
+    }
+
+    //Ordenar la lista de indices
+    std::sort(result.entries.begin(), result.entries.end(), 
+        [](const PrimaryEntry& a, const PrimaryEntry& b){
+            return a.label_id < b.label_id;
+        }
+    );
+
+    result.status = ReadStatus::Ok;
+    result.detail = "Indice primario construido exitosamente";
+    return result;
 }
 
 std::optional<std::uint64_t> find_offset(
